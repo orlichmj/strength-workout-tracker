@@ -598,8 +598,9 @@
 <div id="tab-today">
   <div class="header-row">
     <div class="day-toggle">
-      <button data-day="mon" class="active">Monday</button>
-      <button data-day="fri">Friday</button>
+      <button data-day="a" class="active">A</button>
+      <button data-day="b">B</button>
+      <button data-day="c">C</button>
     </div>
     <input type="date" class="date-picker" id="session-date">
   </div>
@@ -664,8 +665,9 @@
 
 <div id="tab-edit" class="hidden">
   <div class="edit-day-toggle">
-    <button data-edit-day="mon" class="active">Monday exercises</button>
-    <button data-edit-day="fri">Friday exercises</button>
+    <button data-edit-day="a" class="active">Workout A</button>
+    <button data-edit-day="b">Workout B</button>
+    <button data-edit-day="c">Workout C</button>
   </div>
   <div id="edit-list"></div>
   <button class="add-ex-btn" id="add-ex-btn">+ Add exercise</button>
@@ -757,31 +759,38 @@ const FIELD_CONFIG = {
 // ============================================================
 // DEFAULTS
 // ============================================================
-const STORAGE_KEY = 'strength_log_v2';
+const STORAGE_KEY = 'strength_log_v3';
 
 const DEFAULT_EXERCISES = {
-  mon: [
-    { id: 'm1', name: 'Lateral step w/ mini-band', type: 'band_lateral', note: 'driveway & back, each side', band: 'red', laps: 1 },
-    { id: 'm2', name: 'Lateral jumps w/ mini-band', type: 'band_lateral', note: 'driveway & back, each side', band: 'red', laps: 1 },
-    { id: 'm3', name: 'Kickbacks with mini-band', type: 'band_reps', note: 'each leg, band at ankle', band: 'orange', reps: 30, sets: 1 },
-    { id: 'm4', name: 'Heavy barbell back squats', type: 'weighted', note: 'ascending sets of 6 - top set', weight: 205, reps: 6, sets: 1 },
-    { id: 'm5', name: 'Overhead dumbbell press', type: 'weighted', note: 'to near failure', weight: 30, reps: 12, sets: 2 },
-    { id: 'm6', name: 'Inverted rows with rings', type: 'bodyweight', note: 'to near failure', reps: 6, sets: 2 },
-    { id: 'm7', name: 'Double-leg calf raise with toe off', type: 'bodyweight', note: '', reps: 30, sets: 1 },
-    { id: 'm8', name: 'Kettlebell swings', type: 'weighted', note: 'hip hinge & thrust, not knees', weight: 35, reps: 30, sets: 2 },
-    { id: 'm9', name: 'Dead hang', type: 'hang', note: '', seconds: 30, reps: 1 }
+  a: [
+    { id: 'a1', name: 'Lateral step w/ mini-band', type: 'band_lateral', note: 'driveway & back, each side', band: 'red', laps: 1 },
+    { id: 'a2', name: 'Lateral jumps w/ mini-band', type: 'band_lateral', note: 'driveway & back, each side', band: 'red', laps: 1 },
+    { id: 'a3', name: 'Kickbacks with mini-band', type: 'band_reps', note: 'each leg, band at ankle', band: 'orange', reps: 30, sets: 1 },
+    { id: 'a4', name: 'Barbell back squats', type: 'weighted', note: 'ascending sets - top set', weight: 205, reps: 6, sets: 1 },
+    { id: 'a5', name: 'Kettlebell swings', type: 'weighted', note: 'hip hinge & thrust, not knees', weight: 35, reps: 30, sets: 2 },
+    { id: 'a6', name: 'Double-leg calf raise with toe off', type: 'bodyweight', note: '', reps: 30, sets: 1 },
+    { id: 'a7', name: 'Overhead dumbbell press', type: 'weighted', note: 'to near failure', weight: 30, reps: 12, sets: 2 },
+    { id: 'a8', name: 'Inverted rows with rings', type: 'bodyweight', note: 'to near failure', reps: 6, sets: 2 },
+    { id: 'a9', name: 'Dead hang', type: 'hang', note: '', seconds: 30, reps: 1 }
   ],
-  fri: [
-    { id: 'f1', name: 'Elevated single-leg split squat', type: 'bodyweight', note: 'each leg', reps: 20, sets: 1 },
-    { id: 'f2', name: 'Sidesteps down driveway', type: 'band_lateral', note: 'there & back, each side', band: 'red', laps: 1 },
-    { id: 'f3', name: 'Kickbacks with mini-band', type: 'band_reps', note: 'each leg, band at ankle', band: 'orange', reps: 30, sets: 1 },
-    { id: 'f4', name: 'Single-leg calf raise', type: 'bodyweight', note: 'each leg', reps: 18, sets: 1 },
-    { id: 'f5', name: 'Heavy barbell deadlifts', type: 'weighted', note: 'ascending sets of 4 - top set', weight: 195, reps: 4, sets: 1 },
-    { id: 'f6', name: 'Barbell bench press', type: 'weighted', note: 'ascending sets of 8 - top set', weight: 115, reps: 8, sets: 1 },
-    { id: 'f7', name: 'Single-arm dumbbell row', type: 'weighted', note: 'each arm', weight: 30, reps: 10, sets: 2 },
-    { id: 'f8', name: 'Dumbbell clocker', type: 'weighted', note: '', weight: 10, reps: 10, sets: 1 },
-    { id: 'f9', name: 'Dumbbell triceps press', type: 'weighted', note: '', weight: 25, reps: 15, sets: 1 },
-    { id: 'f10', name: 'Dead hang', type: 'hang', note: '', seconds: 30, reps: 1 }
+  b: [
+    { id: 'b1', name: 'Sidesteps w/ mini-band', type: 'band_lateral', note: 'there & back, each side', band: 'red', laps: 1 },
+    { id: 'b2', name: 'Kickbacks with mini-band', type: 'band_reps', note: 'each leg, band at ankle', band: 'orange', reps: 30, sets: 1 },
+    { id: 'b3', name: 'Romanian deadlift (RDL)', type: 'weighted', note: 'hinge at hips, soft knees, feel hamstring stretch', weight: 135, reps: 10, sets: 3 },
+    { id: 'b4', name: 'Single-leg calf raise', type: 'bodyweight', note: 'each leg', reps: 18, sets: 2 },
+    { id: 'b5', name: 'Incline dumbbell press', type: 'weighted', note: '30-45 degrees, to near failure', weight: 30, reps: 10, sets: 3 },
+    { id: 'b6', name: 'Inverted rows with rings', type: 'bodyweight', note: 'to near failure', reps: 6, sets: 3 },
+    { id: 'b7', name: 'Dead hang', type: 'hang', note: '', seconds: 30, reps: 1 }
+  ],
+  c: [
+    { id: 'c1', name: 'Lateral jumps w/ mini-band', type: 'band_lateral', note: 'driveway & back, each side', band: 'red', laps: 1 },
+    { id: 'c2', name: 'Kickbacks with mini-band', type: 'band_reps', note: 'each leg, band at ankle', band: 'orange', reps: 30, sets: 1 },
+    { id: 'c3', name: 'Step-ups with dumbbells', type: 'weighted', note: 'each leg', weight: 25, reps: 12, sets: 2 },
+    { id: 'c4', name: 'Single-leg calf raise', type: 'bodyweight', note: 'each leg', reps: 18, sets: 2 },
+    { id: 'c5', name: 'Dumbbell bench press', type: 'weighted', note: 'to near failure', weight: 40, reps: 10, sets: 3 },
+    { id: 'c6', name: 'Single-arm dumbbell row', type: 'weighted', note: 'each arm', weight: 30, reps: 10, sets: 3 },
+    { id: 'c7', name: 'Dumbbell triceps press', type: 'weighted', note: '', weight: 25, reps: 15, sets: 2 },
+    { id: 'c8', name: 'Dead hang', type: 'hang', note: '', seconds: 30, reps: 1 }
   ]
 };
 
@@ -795,7 +804,7 @@ function loadState() {
       if (!parsed.exercises) parsed.exercises = structuredClone(DEFAULT_EXERCISES);
       if (!parsed.sessions) parsed.sessions = [];
       if (!parsed.draft) parsed.draft = {};
-      for (const day of ['mon','fri']) {
+      for (const day of ['a','b','c']) {
         if (parsed.exercises[day]) {
           for (const ex of parsed.exercises[day]) {
             if (!ex.type) ex.type = 'weighted';
@@ -838,12 +847,14 @@ function bandLabel(v) {
   return b ? b.label : 'No band';
 }
 function defaultDayForDate(dateStr) {
-  const [y,m,d] = dateStr.split('-').map(Number);
-  const dow = new Date(y, m-1, d).getDay();
-  if (dow === 1) return 'mon';
-  if (dow === 5) return 'fri';
+  // Return the most recently used workout, or 'a' if no history
   const recent = [...state.sessions].sort((a,b) => b.date.localeCompare(a.date))[0];
-  return recent ? recent.day : 'mon';
+  if (recent) {
+    // Suggest the next in rotation
+    const next = { a: 'b', b: 'c', c: 'a' };
+    return next[recent.day] || 'a';
+  }
+  return 'a';
 }
 
 function getPreviousSession(day, exerciseId, beforeDate) {
@@ -908,9 +919,9 @@ function metricUnit(metric) {
 // UI STATE
 // ============================================================
 let currentTab = 'today';
-let currentDay = 'mon';
+let currentDay = 'a';
 let currentDate = todayStr();
-let currentEditDay = 'mon';
+let currentEditDay = 'a';
 let currentHistoryEx = null;
 let currentMetric = null;
 let modalCallback = null;
@@ -1166,7 +1177,7 @@ const sessionListEl = document.getElementById('session-list');
 
 function allExercises() {
   const map = new Map();
-  for (const day of ['mon','fri']) {
+  for (const day of ['a','b','c']) {
     for (const ex of state.exercises[day]) {
       if (!map.has(ex.id)) map.set(ex.id, { id: ex.id, name: ex.name, type: ex.type });
     }
@@ -1394,7 +1405,7 @@ function renderSessionList() {
     sessionListEl.innerHTML = recent.map(s => {
       const done = s.entries.filter(e => e.completed).length;
       return '<div class="session-row">' +
-        '<span class="session-date">' + fmtDateLong(s.date) + ' \u00b7 ' + (s.day === 'mon' ? 'Monday' : 'Friday') + '</span>' +
+        '<span class="session-date">' + fmtDateLong(s.date) + ' \u00b7 Workout ' + s.day.toUpperCase() + '</span>' +
         '<span class="session-detail">' + done + ' / ' + s.entries.length + '</span>' +
       '</div>';
     }).join('');
@@ -1528,7 +1539,7 @@ function renderEdit() {
     btn.addEventListener('click', () => {
       const id = btn.dataset.delete;
       const ex = state.exercises[currentEditDay].find(x => x.id === id);
-      showModal('Remove exercise?', '"' + (ex && ex.name || 'This exercise') + '" will be removed from the ' + (currentEditDay === 'mon' ? 'Monday' : 'Friday') + ' list. Past session data is preserved.', () => {
+      showModal('Remove exercise?', '"' + (ex && ex.name || 'This exercise') + '" will be removed from Workout ' + currentEditDay.toUpperCase() + '. Past session data is preserved.', () => {
         state.exercises[currentEditDay] = state.exercises[currentEditDay].filter(x => x.id !== id);
         saveState();
         renderEdit();
